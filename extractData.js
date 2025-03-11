@@ -9,9 +9,10 @@ export const getData = async () => {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-gpu',
-      '--disable-dev-shm-usage',
+      '--disable-gpu', // Deshabilita el uso de GPU
+      '--disable-dev-shm-usage', // Evita problemas con memoria compartida
     ],
+    dumpio: true, // Muestra los logs del navegador
   });
 
   const page = await browser.newPage();
