@@ -6,6 +6,12 @@ export const getData = async () => {
   const browser = await puppeteer.launch({
     headless: true,
     executablePath: '/data/data/com.termux/files/usr/bin/firefox',
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-gpu',
+      '--disable-dev-shm-usage',
+    ],
   });
 
   const page = await browser.newPage();
