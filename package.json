@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "node-cron": "^3.0.3",
-    "puppeteer": "^24.4.0"
+    "puppeteer-core": "^24.4.0"
   },
   "devDependencies": {
     "@types/node-cron": "^3.0.11"
