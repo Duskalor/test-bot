@@ -13,10 +13,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.21.2",
     "node-cron": "^3.0.3",
     "playwright": "^1.51.0"
   },
   "devDependencies": {
-    "@types/node-cron": "^3.0.11"
+    "@eslint/js": "^9.22.0",
+    "@types/node-cron": "^3.0.11",
+    "eslint": "^9.22.0",
+    "globals": "^16.0.0"
   }
 }

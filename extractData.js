@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
-const URL = 'https://appstorrent.org/info-activation/ked-by-monter-group/';
+const URL =
+  'https://whatsup.es/blog/los-20-phrasal-verbs-mas-usados-con-ejemplos';
 // const URL =
 //   'https://www.convocatoriasdetrabajo.com/buscar-empleo.php?q=informatica&dep=7';
 

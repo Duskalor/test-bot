@@ -14,8 +14,8 @@ RUN npm install
 COPY . .
 
 # Expone el puerto (ajústalo según tu app)
-EXPOSE 3000
+EXPOSE 3100
 
 # Comando para iniciar la app
-# CMD ["npm","start"]
-CMD ["sh", "-c", "node app.js && tail -f /dev/null"]
+CMD ["npm","start"]
+# CMD ["sh", "-c", "node app.js && tail -f /dev/null"]
