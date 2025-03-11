@@ -9,14 +9,17 @@ export const getData = async () => {
     // args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
-  const page = await browser.newPage();
-  await page.setUserAgent(
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
-  );
+  // const page = await browser.newPage();
+  const context = await browser.newContext({
+    userAgent:
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0',
+  });
 
+  // Create a new page in the browser context and navigate to target URL
+  const page = await context.newPage();
   await page.goto(URL, {
     timeout: 60000,
-    waitUntil: 'networkidle',
+    // waitUntil: 'networkidle',
   });
   const a = await page.title();
   return a;
