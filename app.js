@@ -1,12 +1,7 @@
-import cron from 'node-cron';
+import { messageToChat } from './message.js';
+import { getData } from './extractData.js';
 
-process.loadEnvFile();
-const TOKEN_BOT = process.env.TOKEN_BOT;
-
-cron.schedule('*/3 * * * * *', () => {
-  fetch(
-    `https://api.telegram.org/bot${TOKEN_BOT}/sendMessage?chat_id=1974797847&text=${encodeURIComponent(
-      'probando el test'
-    )}`
-  );
+getData().then((data) => {
+  console.log('AQUII');
+  messageToChat(data);
 });
