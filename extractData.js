@@ -1,12 +1,11 @@
-import puppeteer from 'puppeteer-core';
+import { chromium } from 'playwright';
 const URL =
   'https://www.convocatoriasdetrabajo.com/buscar-empleo.php?q=informatica&dep=7';
 
 export const getData = async () => {
-  const browser = await puppeteer.launch({
-    executablePath:
-      process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  const browser = await chromium.launch({
+    headless: true,
+    // args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
   const page = await browser.newPage();

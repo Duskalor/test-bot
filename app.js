@@ -3,5 +3,6 @@ import { getData } from './extractData.js';
 
 getData().then((data) => {
   console.log('AQUII');
-  messageToChat(data);
+  console.log(data);
+  // messageToChat(data);
 });
