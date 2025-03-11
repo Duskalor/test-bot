@@ -5,7 +5,7 @@ const URL =
 export const getData = async () => {
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath: 'w3m',
+    executablePath: '"/data/data/com.termux/files/usr/bin/firefox"',
   });
 
   const page = await browser.newPage();
