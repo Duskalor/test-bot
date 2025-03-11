@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-process.loadEnvFile();
+
 const TOKEN_BOT = process.env.TOKEN_BOT;
 
 export const messageToChat = (text, time = 10) => {
