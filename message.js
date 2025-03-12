@@ -7,10 +7,8 @@ const TOKEN_BOT = process.env.TOKEN_BOT;
 export const messageToChat = (time = 10, contador) => {
   let value = time;
   if (value < 10) value = 10;
-
+  console.log(`con intervalo de ${value} segundos.`);
   return cron.schedule(`*/${value} * * * * *`, async () => {
-    console.log(`con intervalo de ${value} segundos.`);
-
     const text = await getData();
 
     console.log(`scrapping terminado nro ${contador}`);
