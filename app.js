@@ -1,23 +1,25 @@
 import express from 'express';
-import { messageToChat } from './message.js';
+import { messageToChat } from './src/message.js';
+import { supabase } from './src/lib/supabase.js';
 
-// process.loadEnvFile();
+// eslint-disable-next-line no-undef
+process.loadEnvFile();
 
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3100;
 
 const app = express();
 
 let appToSend;
-let contador = 1;
+// let contador = 1;
 
 app.get('/iniciar-bot', async (req, res) => {
   console.log('iniciando bot en /iniciar-bot');
-  const { q } = req.query;
-  console.log(`iniciando scrapping.. nro ${contador}`);
-  appToSend = messageToChat(q, contador);
+  console.log('iniciando scrapping..');
+  appToSend = await messageToChat();
 
   res.json({
-    message: q ? `server on with interval of ${q} seconds` : 'server on',
+    message: 'server on, scrapping every 12 hours',
   });
 });
 
@@ -25,6 +27,12 @@ app.get('/detener-bot', async (req, res) => {
   console.log('deteniendo bot en /detener-bot');
   appToSend.stop();
   res.json({ message: 'server off' });
+});
+
+app.get('/get-data', async (req, res) => {
+  console.log('obteniendo datos de /get-data');
+  const { data } = await supabase.from('Elements').select('*');
+  res.json({ data });
 });
 
 app.listen(PORT, () => {

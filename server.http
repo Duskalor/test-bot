@@ -1,6 +1,10 @@
-GET http://localhost:3000/iniciar-bot
+GET http://localhost:3100/iniciar-bot
+
 
 ###
-GET http://localhost:3000/iniciar-bot?q=15
-###
 GET http://localhost:3000/detener-bot
+
+
+
+###
+GET http://localhost:3100/get-data

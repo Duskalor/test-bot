@@ -10,5 +10,7 @@ COPY . .
 # Instalar las dependencias de Node.js
 RUN npm install
 
+
+EXPOSE 3100
 # Ejecutar el script principal
 CMD ["npm", "start"]
