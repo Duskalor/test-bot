@@ -11,6 +11,5 @@ COPY . .
 RUN npm install
 
 
-EXPOSE 3100
 # Ejecutar el script principal
 CMD ["npm", "start"]

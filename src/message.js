@@ -10,7 +10,7 @@ const TOKEN_BOT = process.env.TOKEN_BOT;
 
 const newContext = async () => {
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
   });
   return await browser.newContext({
     userAgent:
