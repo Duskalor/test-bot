@@ -8,3 +8,8 @@ GET http://localhost:3000/detener-bot
 
 ###
 GET http://localhost:3100/get-data
+
+
+
+###
+GET http://localhost:3100/insert-data

@@ -1,8 +1,7 @@
 import cron from 'node-cron';
 // import { getData } from './extractData.js';
 
-// eslint-disable-next-line no-undef
-process.loadEnvFile();
+// process.loadEnvFile();
 import { chromium } from 'playwright';
 import { getRemajuData } from './remaju.js';
 import { saveDatabase } from './SaveDatabase.js';
@@ -25,7 +24,7 @@ export const messageToChat = async () => {
   const context = await newContext();
   // '0 */12 * * *';
 
-  return cron.schedule('*/15 * * * * *', async () => {
+  return cron.schedule('0 */12 * * *', async () => {
     try {
       const dataDB = await getRemajuData(context);
       if (!dataDB) {
