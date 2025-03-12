@@ -1,21 +1,14 @@
-# Usa una imagen oficial de Node con Playwright
+# Usar la imagen oficial de Playwright v1.51.0-jammy
 FROM mcr.microsoft.com/playwright:v1.51.0-jammy
 
-# Establece el directorio de trabajo
+# Configurar el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos necesarios
-COPY package.json  ./
-
-# Instala dependencias
-RUN npm install
-
-# Copia el resto del código
+# Copiar los archivos del proyecto al contenedor
 COPY . .
 
-# Expone el puerto (ajústalo según tu app)
-EXPOSE 3100
+# Instalar las dependencias de Node.js
+RUN npm install
 
-# Comando para iniciar la app
-CMD ["npx playwright install-deps && npm start"]
-# CMD ["sh", "-c", "node app.js && tail -f /dev/null"]
+# Ejecutar el script principal
+CMD ["npm", "start"]
