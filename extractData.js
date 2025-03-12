@@ -21,7 +21,7 @@ export const getData = async () => {
   const page = await context.newPage();
   await page.goto(URL, {
     timeout: 60000,
-    // waitUntil: 'networkidle',
+    waitUntil: 'load',
   });
   console.log('4');
   const a = await page.title();
