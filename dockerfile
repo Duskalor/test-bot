@@ -17,5 +17,5 @@ COPY . .
 EXPOSE 3100
 
 # Comando para iniciar la app
-CMD ["npm","start"]
+CMD ["npx playwright install-deps && npm start"]
 # CMD ["sh", "-c", "node app.js && tail -f /dev/null"]
