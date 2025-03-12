@@ -25,5 +25,6 @@ export const getData = async () => {
   });
   console.log('4');
   const a = await page.title();
+  browser.close();
   return a;
 };
