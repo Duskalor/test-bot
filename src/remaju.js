@@ -17,7 +17,7 @@ export const getRemajuData = async (context) => {
     await page.waitForSelector(SelectOptions);
     await page.selectOption(SelectOptions, { value: '12' });
 
-    await wait(6000);
+    await wait(60000);
 
     // Obtener el número de páginas totales
     const TotalSelector = '.ui-paginator-bottom';
@@ -76,7 +76,7 @@ export const getRemajuData = async (context) => {
         Moneda
       );
       dataScrapping.push(...names);
-      await wait(20000);
+      await wait(10000);
     }
     return dataScrapping;
   } catch (error) {
