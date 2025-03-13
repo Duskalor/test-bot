@@ -76,7 +76,7 @@ export const getRemajuData = async (context) => {
         Moneda
       );
       dataScrapping.push(...names);
-      await wait(10000);
+      await wait(60000);
     }
     return dataScrapping;
   } catch (error) {
