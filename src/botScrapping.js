@@ -8,8 +8,10 @@ import { newContext } from './lib/newContext.js';
 export const botScrapping = async () => {
   console.log(`con intervalo de ${12} horas.`);
   const context = await newContext();
+  //'*/5 * * * *' cada 5 minutos
+  // '0 0 */12 * * *' cada 12 horas
 
-  return cron.schedule('*/5 * * * *', async () => {
+  return cron.schedule('0 0 */12 * * *', async () => {
     console.log('iniciando scrapping..');
     try {
       const dataDB = await getRemajuData(context);
