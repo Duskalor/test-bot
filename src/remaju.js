@@ -79,15 +79,9 @@ export const getRemajuData = async (context) => {
       await wait(10000);
     }
     return dataScrapping;
-    // console.log(dataScrapping.length);
-    // const newDatascrapping = dataScrapping.filter((item) =>
-    //   item.title.includes('TERCERA')
-    // );
-
-    // console.log(newDatascrapping);
-    // console.log(newDatascrapping.length);
   } catch (error) {
     console.log(error);
+    return null;
   } finally {
     await page.close();
   }

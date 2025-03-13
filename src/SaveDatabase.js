@@ -1,20 +1,21 @@
 import { supabase } from './lib/supabase.js';
 
-export const saveDatabase = async (data) => {
+export const saveDatabase = async (values) => {
   const { error: DeletedError } = await supabase
     .from('Elements')
-    .delete()
-    .gt('id', 0);
+    .delete({ count: 'exact' })
+    .lt('created_at', '3000-01-01');
 
-  if (DeletedError) console.error('Error al borrar:', error);
+  if (DeletedError) return console.error('Error al borrar:', DeletedError);
   else console.log('Todos los datos eliminados de Elements');
 
-  const { data: response, error } = await supabase
-    .from('Elements')
-    .insert(data);
+  const { statusText, error } = await supabase.from('Elements').insert(values);
   if (error) {
     console.log(error);
   } else {
-    console.log('Cantidad de elmentos insertados: ', response.length);
+    console.log(
+      `${statusText} \nCantidad de elmentos insertados: `,
+      values.length
+    );
   }
 };

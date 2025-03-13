@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-// process.loadEnvFile();
 
 // Usa variables de entorno para mayor seguridad
 // eslint-disable-next-line no-undef
