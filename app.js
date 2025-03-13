@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import { getDatabase } from './src/lib/getDatabase.js';
-import { sendTelegram } from './src/lib/sendTelegram.js';
+import { sendTelegram } from './src/services/sendTelegram.js';
 import { cacheMiddleware } from './src/midleware/cache.js';
 import { botScrapping } from './src/botScrapping.js';
 import cors from 'cors';

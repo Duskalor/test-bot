@@ -2,7 +2,7 @@ import cron from 'node-cron';
 
 import { getRemajuData } from './remaju.js';
 import { saveDatabase } from './SaveDatabase.js';
-import { sendTelegram } from './lib/sendTelegram.js';
+import { sendTelegram } from './services/sendTelegram.js';
 import { newContext } from './lib/newContext.js';
 
 export const botScrapping = async () => {
