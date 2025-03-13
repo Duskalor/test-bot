@@ -47,7 +47,7 @@ export const sendTelegram = async (data) => {
       await Promise.all(DatosTelegram);
     } else {
       console.log(
-        `No hay datos de ${FilterDatos} convocatoria para enviar a telegram`
+        `No hay datos de ${FilterDatos} CONVOCATORIA para enviar a telegram`
       );
     }
   } catch (error) {

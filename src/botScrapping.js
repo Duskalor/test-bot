@@ -17,8 +17,8 @@ export const botScrapping = async () => {
         return console.log('error al obtener datos');
       }
       await saveDatabase(dataDB);
-      console.log('scrapping terminado');
       await sendTelegram(dataDB);
+      console.log('scrapping terminado');
     } catch (error) {
       console.log(error);
       console.log('error en el scrapping');
