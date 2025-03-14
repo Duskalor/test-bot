@@ -12,11 +12,11 @@ export const botScrapping = async () => {
   // '0 0 */12 * * *' cada 12 horas
   //'0 0 */6 * * *' cada 6 horas
 
-  return cron.schedule('0 0 */6 * * *', async () => {
+  return cron.schedule('0 0 */12 * * *', async () => {
     console.log('iniciando scrapping..');
     try {
       const dataDB = await getRemajuData(context);
-      if (!dataDB) {
+      if (dataDB.length === 0) {
         return console.log('error al obtener datos');
       }
       await saveDatabase(dataDB);
