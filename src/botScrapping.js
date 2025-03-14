@@ -10,8 +10,9 @@ export const botScrapping = async () => {
   const context = await newContext();
   //'*/5 * * * *' cada 5 minutos
   // '0 0 */12 * * *' cada 12 horas
+  //'0 0 */6 * * *' cada 6 horas
 
-  return cron.schedule('0 0 */12 * * *', async () => {
+  return cron.schedule('0 0 */6 * * *', async () => {
     console.log('iniciando scrapping..');
     try {
       const dataDB = await getRemajuData(context);
