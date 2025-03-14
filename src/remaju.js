@@ -1,3 +1,5 @@
+import { GetRandomTime } from './lib/randomTime.js';
+
 const URL = 'https://remaju.pj.gob.pe/remaju/pages/publico/remateExterno.xhtml';
 const Moneda = {
   $: 'USD',
@@ -16,7 +18,7 @@ export const getRemajuData = async (context) => {
     await page.waitForSelector(SelectOptions);
     await page.selectOption(SelectOptions, { value: '12' });
 
-    await wait(60000);
+    await wait(GetRandomTime());
 
     // Obtener el número de páginas totales
     const TotalSelector = '.ui-paginator-bottom';
@@ -163,11 +165,14 @@ export const getRemajuData = async (context) => {
 
         if (names.length > 0) {
           dataScrapping.push(...names);
+          console.log(
+            `cantidad de datos obtenidos : ${names.length} de la pagina ${i}`
+          );
         } else {
           console.warn(`No se extrajeron datos en la página ${i}`);
         }
 
-        await wait(60000);
+        await wait(GetRandomTime());
       } catch (error) {
         console.error(`Error en la página ${i}:`, error.message);
       }
