@@ -17,3 +17,7 @@ GET http://localhost:3100/test-telegram
 
 # ###
 # GET http://localhost:3100/insert-data
+
+
+###
+GET http://localhost:3100/test-price

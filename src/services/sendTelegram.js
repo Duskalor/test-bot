@@ -1,13 +1,14 @@
+import { convocatorias } from '../utils/const.js';
+
 // eslint-disable-next-line no-undef
 const TOKEN_BOT = process.env.TOKEN_BOT;
 
-const convo = {
-  primera: 'PRIMERA',
-  segunda: 'SEGUNDA',
-  tercera: 'TERCERA',
-};
+const FilterDatos = convocatorias.primera;
 
-const FilterDatos = convo.tercera;
+const Locate = {
+  CUSCO: 'CUSCO',
+  WANCHAQ: 'WANCHAQ',
+};
 
 const Moneda = {
   USD: '$',
@@ -15,14 +16,21 @@ const Moneda = {
 };
 
 export const sendTelegram = async (data) => {
-  const TerceraConvocatoriaDatos = data.filter((item) =>
-    item.title.includes(FilterDatos)
-  );
+  const TerceraConvocatoriaDatos = data.filter((item) => {
+    return (
+      item.title.includes(FilterDatos) &&
+      Object.keys(Locate).some((L) => L === item.location)
+    );
+  });
 
   try {
     if (TerceraConvocatoriaDatos.length > 0) {
-      const titulo = `📅 Fecha: ${new Date().toLocaleDateString()}  
-⏰ Hora: ${new Date().toLocaleTimeString()}  
+      const titulo = `📅 Fecha: ${new Date().toLocaleDateString('es-PE', {
+        timeZone: 'America/Lima',
+      })}  
+⏰ Hora: ${new Date().toLocaleTimeString('es-PE', {
+        timeZone: 'America/Lima',
+      })}  
 
 ➖➖➖➖➖➖➖`;
 

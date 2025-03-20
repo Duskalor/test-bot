@@ -1,11 +1,11 @@
 import { GetRandomTime } from './lib/randomTime.js';
+import { wait } from './utils/wait.js';
 
 const URL = 'https://remaju.pj.gob.pe/remaju/pages/publico/remateExterno.xhtml';
 const Moneda = {
   $: 'USD',
   'S/.': 'PEN',
 };
-const wait = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const getRemajuData = async (context) => {
   const page = await context.newPage();

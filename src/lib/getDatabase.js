@@ -1,5 +1,5 @@
 import { supabase } from './supabase.js';
 
-export const getDatabase = async () => {
-  return await supabase.from('Elements').select('*');
+export const getDatabase = async (tabla) => {
+  return await supabase.from(tabla).select('*');
 };

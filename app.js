@@ -3,10 +3,14 @@ import express from 'express';
 import { getDatabase } from './src/lib/getDatabase.js';
 import { sendTelegram } from './src/services/sendTelegram.js';
 import { cacheMiddleware } from './src/midleware/cache.js';
-import { botScrapping } from './src/botScrapping.js';
+import { Scrapping } from './src/Scrapping.js';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { tablesDB } from './src/utils/const.js';
+import { newContext } from './src/lib/newContext.js';
+import { getPrices } from './src/lib/getPrices.js';
+import { saveDatabasePrices } from './src/lib/savePrices.js';
 
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3100;
@@ -15,11 +19,11 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(morgan('combined'));
-let appToSend;
+let serverApp;
 
 app.get('/iniciar-bot', async (req, res) => {
   console.log('iniciando bot en /iniciar-bot');
-  appToSend = await botScrapping();
+  serverApp = await Scrapping();
   res.json({
     message: 'server on, scrapping every 12 hours',
   });
@@ -27,20 +31,29 @@ app.get('/iniciar-bot', async (req, res) => {
 
 app.get('/detener-bot', async (req, res) => {
   console.log('deteniendo bot en /detener-bot');
-  appToSend.stop();
+  serverApp.botPrice.stop();
+  serverApp.botScrap.stop();
   res.json({ message: 'server off' });
 });
 
 app.get('/get-data', cacheMiddleware, async (req, res) => {
   console.log('obteniendo datos de /get-data');
-  const { data } = await getDatabase();
+  const { data } = await getDatabase(tablesDB.Elements);
   res.json({ data });
 });
 
 app.get('/test-telegram', cacheMiddleware, async (req, res) => {
-  const { data } = await getDatabase();
+  const { data } = await getDatabase(tablesDB.Elements);
   await sendTelegram(data);
   return res.json({ text: 'ok' });
+});
+
+app.get('/test-price', async (req, res) => {
+  const contex = await newContext();
+  const prices = await getPrices(contex);
+  await saveDatabasePrices(prices);
+  console.log({ prices });
+  res.json({ prices });
 });
 
 // app.get('/insert-data', async (req, res) => {
