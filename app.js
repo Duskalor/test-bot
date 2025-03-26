@@ -12,6 +12,7 @@ import { newContext } from './src/lib/newContext.js';
 import { getPrices } from './src/lib/getPrices.js';
 import { saveDatabasePrices } from './src/lib/savePrices.js';
 import { getRemajuData } from './src/remaju.js';
+import { saveDatabase } from './src/SaveDatabase.js';
 
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3100;
@@ -81,7 +82,9 @@ app.get('/test-price', async (req, res) => {
 app.get('/test-remaju', async (req, res) => {
   console.log('probando scrapping ...');
   const context = await newContext();
-  await getRemajuData(context);
+  const dataDB = await getRemajuData(context);
+  await saveDatabase(dataDB);
+  await sendTelegram(dataDB);
   res.json({ msg: 'iniciando test - test-remaju' });
 });
 
