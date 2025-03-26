@@ -2,12 +2,10 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-// import morgan from 'morgan';
-import { swaggerSpec } from './swagger.js';
 import swaggerUi from 'swagger-ui-express';
 import { route } from './src/routes/endpointsApp.js';
-// import { route } from './src/routes/endpointsApp.js';
-
+import { swaggerSpec } from './src/swagger.js';
+// import morgan from 'morgan';
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3100;
 
