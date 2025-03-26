@@ -11,6 +11,7 @@ import { tablesDB } from './src/utils/const.js';
 import { newContext } from './src/lib/newContext.js';
 import { getPrices } from './src/lib/getPrices.js';
 import { saveDatabasePrices } from './src/lib/savePrices.js';
+import { getRemajuData } from './src/remaju.js';
 
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3100;
@@ -49,8 +50,8 @@ app.get('/test-telegram', cacheMiddleware, async (req, res) => {
 });
 
 app.get('/test-price', async (req, res) => {
-  const contex = await newContext();
-  const prices = await getPrices(contex);
+  const context = await newContext();
+  const prices = await getPrices(context);
   await saveDatabasePrices(prices);
   console.log({ prices });
   res.json({ prices });
@@ -76,6 +77,13 @@ app.get('/test-price', async (req, res) => {
 
 //   res.json({ process: 'ok' });
 // });
+
+app.get('/test-remaju', async (req, res) => {
+  console.log('probando scrapping ...');
+  const context = await newContext();
+  await getRemajuData(context);
+  res.json({ msg: 'iniciando test - test-remaju' });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

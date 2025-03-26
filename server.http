@@ -21,3 +21,8 @@ GET http://localhost:3100/test-telegram
 
 ###
 GET http://localhost:3100/test-price
+
+
+
+###
+GET http://localhost:3100/test-remaju
