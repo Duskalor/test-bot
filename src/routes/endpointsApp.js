@@ -9,40 +9,55 @@ import { getPrices } from '../lib/getPrices.js';
 import { saveDatabasePrices } from '../lib/savePrices.js';
 import { getRemajuData } from '../remaju.js';
 import { saveDatabase } from '../SaveDatabase.js';
+
 export const route = Router();
 
 let serverApp;
+/**
+ * @swagger
+ * tags:
+ *   - name: Bot
+ *     description: Rutas para controlar el bot de scrapping
+ *   - name: Datos
+ *     description: Rutas para obtener datos de la base de datos
+ *   - name: Scraping
+ *     description: Rutas relacionadas con scraping
+ *   - name: Notificación
+ *     description: Rutas para notificaciones y envío de datos
+ *   - name: Pruebas
+ *     description: Rutas de prueba
+ */
 
 /**
  * @swagger
- * /iniciar-bot:
+ * /api/bot/start:
  *   get:
+ *     tags:
+ *       - Bot
  *     summary: Inicia el bot de scrapping
  *     description: Inicia el bot que hace scrapping cada 12 horas
  *     responses:
  *       200:
  *         description: Bot iniciado
  */
-route.get('/iniciar-bot', async (req, res) => {
-  console.log('iniciando bot en /iniciar-bot');
+route.get('/bot/start', async (req, res) => {
   serverApp = await Scrapping();
-  res.json({
-    message: 'server on, scrapping every 12 hours',
-  });
+  res.json({ message: 'server on, scrapping every 12 hours' });
 });
 
 /**
  * @swagger
- * /detener-bot:
+ * /api/bot/stop:
  *   get:
+ *     tags:
+ *       - Bot
  *     summary: Detiene el bot de scrapping
  *     description: Detiene el bot que hace scrapping cada 12 horas
  *     responses:
  *       200:
  *         description: Bot detenido
  */
-route.get('/detener-bot', async (req, res) => {
-  console.log('deteniendo bot en /detener-bot');
+route.get('/bot/stop', async (req, res) => {
   serverApp.botPrice.stop();
   serverApp.botScrap.stop();
   res.json({ message: 'server off' });
@@ -50,77 +65,84 @@ route.get('/detener-bot', async (req, res) => {
 
 /**
  * @swagger
- * /get-data:
+ * /api/data:
  *   get:
+ *     tags:
+ *       - Datos
  *     summary: Obtiene datos de la base de datos
  *     description: Retorna datos de la tabla Elements
  *     responses:
  *       200:
  *         description: Datos obtenidos exitosamente
  */
-route.get('/get-data', cacheMiddleware, async (req, res) => {
-  console.log('obteniendo datos de /get-data');
+route.get('/data', cacheMiddleware, async (req, res) => {
   const { data } = await getDatabase(tablesDB.Elements);
   res.json({ data });
 });
 
 /**
  * @swagger
- * /test-telegram:
+ * /api/scraping/remaju:
  *   get:
- *     summary: Enviar datos por Telegram
- *     description: Envía datos de la tabla Elements a Telegram
+ *     tags:
+ *       - Scraping
+ *     summary: Realiza scraping de Remaju
+ *     description: Obtiene datos de Remaju y los guarda en la base de datos
  *     responses:
  *       200:
- *         description: Datos enviados exitosamente
+ *         description: Scraping de Remaju completado
  */
-route.get('/test-telegram', cacheMiddleware, async (req, res) => {
-  const { data } = await getDatabase(tablesDB.Elements);
-  await sendTelegram(data);
-  return res.json({ text: 'ok' });
+route.get('/scraping/remaju', async (req, res) => {
+  const context = await newContext();
+  const dataDB = await getRemajuData(context);
+  await saveDatabase(dataDB);
+  await sendTelegram(dataDB);
+  res.json({ msg: 'iniciando test - remaju' });
 });
 
 /**
  * @swagger
- * /test-price:
+ * /api/scraping/prices:
  *   get:
+ *     tags:
+ *       - Scraping
  *     summary: Obtener y guardar precios
  *     description: Obtiene los precios y los guarda en la base de datos
  *     responses:
  *       200:
  *         description: Precios obtenidos y guardados
  */
-route.get('/test-price', async (req, res) => {
+route.get('/scraping/prices', async (req, res) => {
   const context = await newContext();
   const prices = await getPrices(context);
   await saveDatabasePrices(prices);
-  console.log({ prices });
   res.json({ prices });
 });
 
 /**
  * @swagger
- * /test-remaju:
+ * /api/notification/telegram:
  *   get:
- *     summary: Realiza scrapping de Remaju
- *     description: Obtiene datos de Remaju y los guarda en la base de datos
+ *     tags:
+ *       - Notificación
+ *     summary: Enviar datos por Telegram
+ *     description: Envía datos de la tabla Elements a Telegram
  *     responses:
  *       200:
- *         description: Scrapping de Remaju completado
+ *         description: Datos enviados exitosamente
  */
-route.get('/test-remaju', async (req, res) => {
-  console.log('probando scrapping ...');
-  const context = await newContext();
-  const dataDB = await getRemajuData(context);
-  await saveDatabase(dataDB);
-  await sendTelegram(dataDB);
-  res.json({ msg: 'iniciando test - test-remaju' });
+route.get('/notification/telegram', cacheMiddleware, async (req, res) => {
+  const { data } = await getDatabase(tablesDB.Elements);
+  await sendTelegram(data);
+  res.json({ text: 'ok' });
 });
 
 /**
  * @swagger
- * /test:
+ * /api/test:
  *   get:
+ *     tags:
+ *       - Pruebas
  *     summary: Ruta de prueba
  *     description: Muestra un mensaje de prueba
  *     responses:
@@ -128,27 +150,5 @@ route.get('/test-remaju', async (req, res) => {
  *         description: hola mundo
  */
 route.get('/test', (req, res) => {
-  console.log('hola mundo');
   res.json({ msg: 'hola mundo' });
 });
-
-// Ejemplo comentado
-// route.get('/insert-data', async (req, res) => {
-//   const testdata = {
-//     title: 'test',
-//     type: 'test',
-//     location: 'test',
-//     ['Offer Date']: {
-//       date: 'test',
-//       hour: 'test',
-//     },
-//     process: 'test',
-//     description: 'test',
-//     price: {
-//       currency: 'test',
-//       amount: 'test',
-//     },
-//   };
-//   await saveDatabase([testdata]);
-//   res.json({ process: 'ok' });
-// });

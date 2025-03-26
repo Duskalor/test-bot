@@ -4,9 +4,9 @@ import swaggerJSDoc from 'swagger-jsdoc';
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'API de scrapping Remaju',
+    title: 'Remaju Scraping API',
     version: '1.0.0',
-    description: 'Documentación de mi API Remaju',
+    description: 'API para automatizar y obtener datos de Remaju.',
   },
   servers: [
     {
@@ -18,7 +18,8 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['./routes/endpointsApp.js'],
+  // eslint-disable-next-line no-undef
+  apis: [`${process.cwd()}/src/routes/*.js`],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
