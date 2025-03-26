@@ -28,58 +28,6 @@ export const getRemajuData = async (context) => {
     const totalPages = Math.ceil(rawTotal / 12);
     console.log({ totalPages });
 
-    // for (let i = 1; i <= totalPages; i++) {
-    //   console.log('escanneando la pagina: ', i);
-    //   if (i > 1) {
-    //     const pageSelector = '.ui-paginator-pages';
-    //     await page.waitForSelector(pageSelector);
-
-    //     const rawElements = await page.$(pageSelector);
-    //     await rawElements.$$eval(
-    //       'a',
-    //       (elements, num) => {
-    //         elements.forEach((el) => {
-    //           const textContent = el.textContent.trim();
-    //           if (textContent === num.toString()) {
-    //             el.click();
-    //           }
-    //         });
-    //       },
-    //       i
-    //     );
-    //   }
-
-    //   const gridSelector = '.ui-datagrid-column';
-    //   await page.waitForSelector(gridSelector);
-    //   const names = await page.$$eval(
-    //     gridSelector,
-    //     (elements, Moneda) => {
-    //       return elements.map((el) => {
-    //         const elem = el.querySelectorAll('.ui-panelgrid-cell');
-    //         const price = elem[17].querySelectorAll('span');
-    //         return {
-    //           title: elem[3].textContent.trim(),
-    //           type: elem[4].textContent.trim(),
-    //           location: elem[6].textContent.trim(),
-    //           ['Offer Date']: {
-    //             date: elem[9].textContent.trim(),
-    //             hour: elem[10].textContent.trim(),
-    //           },
-    //           process: elem[12].textContent.trim(),
-    //           description: elem[16].textContent.trim(),
-    //           price: {
-    //             currency: Moneda[price[0].textContent.trim()],
-    //             amount: price[1].textContent.trim(),
-    //           },
-    //         };
-    //       });
-    //     },
-    //     Moneda
-    //   );
-    //   dataScrapping.push(...names);
-    //   await wait(60000);
-    // }
-
     for (let i = 1; i <= totalPages; i++) {
       try {
         console.log('Escaneando la página:', i);

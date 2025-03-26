@@ -58,27 +58,6 @@ app.get('/test-price', async (req, res) => {
   res.json({ prices });
 });
 
-// app.get('/insert-data', async (req, res) => {
-//   const testdata = {
-//     title: 'test',
-//     type: 'test',
-//     location: 'test',
-//     ['Offer Date']: {
-//       date: 'test',
-//       hour: 'test',
-//     },
-//     process: 'test',
-//     description: 'test',
-//     price: {
-//       currency: 'test',
-//       amount: 'test',
-//     },
-//   };
-//   await saveDatabase([testdata]);
-
-//   res.json({ process: 'ok' });
-// });
-
 app.get('/test-remaju', async (req, res) => {
   console.log('probando scrapping ...');
   const context = await newContext();
